@@ -20,6 +20,22 @@ function distribuction () {
     const elemento = document.querySelector(".cards")
     let contador;
     for (contador = 0; contador < totaldecartas; contador++) {
-        elemento.innerHTML = elemento.innerHTML + (`<div class="card"><img src="./Arquivos Úteis - Projeto 04 - Parrot Card Game/front.png"></div>`)
+        elemento.innerHTML = elemento.innerHTML + (`
+    <div onclick="rotacionar(this)" class="card">
+        <div class="front-face face">
+          <img src="img/front.png" />
+        </div>
+        <div class="back-face face">
+          <img src="img/fiestaparrot.gif" />
+        </div>
+    </div>`)
     }
 }
+
+function rotacionar(elemento) {
+    let a = elemento.querySelector(".front-face");
+    a.classList.toggle("rodafrente");
+    let b = elemento.querySelector(".back-face");
+    b.classList.toggle("rodatras");
+    b.classList.toogle("back-face");
+  }
