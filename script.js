@@ -60,8 +60,7 @@ function cardrandom () {
 
 function distribuction () {
     const elemento = document.querySelector(".cards")
-    let contador;
-    for (contador = 0; contador < totaldecartas; contador++) {
+    for (let contador = 0; contador < totaldecartas; contador++) {
         elemento.innerHTML = elemento.innerHTML + (`
     <div onclick="rotacionar(this)" class="card">
         <div class="front-face face">
@@ -137,6 +136,14 @@ function ganhou () {
 function recomecar (){
     let restart = prompt("Gostaria de jogar novamente?")
     if (restart === 'sim') {
+        const elemento = document.querySelector(".cards");
+        elemento.innerHTML = '';
+        qtdclicks = 0;
+        tempocorrido = 0;
+        vetorA = [];
+        vetorB = [];
+        cartasviradas = [];
+        cartascertas = [];
         correction ();
     } else if (restart === 'não'){
         alert("Então fecha a aba aí, já acabou o jogo (╬▔皿▔)╯")
