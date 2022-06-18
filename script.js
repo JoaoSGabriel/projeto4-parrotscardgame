@@ -1,8 +1,11 @@
 let totaldecartas;
 let vetorA = [];
 let vetorB = [];
+let cartasviradas = [];
+let cartascertas = [];
 let vx;
 let qtdclicks = 0;
+let tempocorrido = 0;
 
 correction ();
 function correction () {
@@ -15,13 +18,13 @@ function correction () {
     }
 }
 
-function rotacionar(elemento) {
-    contadordeclicks ();
-    let a = elemento.querySelector(".front-face");
-    a.classList.toggle("rodafrente");
-    let b = elemento.querySelector(".back-face");
-    b.classList.toggle("rodatras");
+function timer() {
+    tempocorrido ++;
+    let alteratempo = document.querySelector(".tempocorrido");
+    alteratempo.innerHTML = `${tempocorrido}`;
 }
+
+setInterval(timer, 1000);
 
 function contadordeclicks () {
     qtdclicks++;
@@ -29,13 +32,13 @@ function contadordeclicks () {
 
 function cardrandom () {
     const imagegifs = [
-        "./img/bobrossparrot.gif",
-        "./img/explodyparrot.gif",
-        "./img/fiestaparrot.gif",
-        "./img/metalparrot.gif",
-        "./img/revertitparrot.gif",
-        "./img/tripletsparrot.gif",
-        "./img/unicornparrot.gif",
+        "bobross",
+        "explody",
+        "fiesta",
+        "metal",
+        "revertit",
+        "triplets",
+        "unicorn"
     ]
     
     let copiador = 0;
@@ -62,11 +65,89 @@ function distribuction () {
         elemento.innerHTML = elemento.innerHTML + (`
     <div onclick="rotacionar(this)" class="card">
         <div class="front-face face">
-          <img src="img/front.png" />
+            <div class="id identify">${vetorB[contador]}</div>
+            <img src="img/front.png" />
         </div>
         <div class="back-face face">
-          <img src='${vetorB[contador]}'/>
+            <div class="id identify">${vetorB[contador]}</div>
+            <img src='./img/${vetorB[contador]}parrot.gif'/>
         </div>
     </div>`)
+    }
+}
+
+function rotacionar(elemento) {
+    let a = elemento.querySelector(".front-face");
+    a.classList.add("rodafrente");
+    let b = elemento.querySelector(".back-face");
+    b.classList.add("rodatras");
+    contadordeclicks ();
+    cartasviradas = document.querySelectorAll(".rodatras .identify");
+    if (cartasviradas.length == 2) {
+        if (cartasviradas[0].innerHTML === cartasviradas[1].innerHTML) {
+            rigthcard ();
+        } else {
+            setTimeout(wrongcard, 1000);
+        }
+    }
+}
+
+function rigthcard() {
+    let a = document.querySelector(".rodafrente .identify");
+    a.classList.remove('identify');
+    let b = document.querySelector(".rodatras .identify");
+    b.classList.remove('identify');
+    rigthcard2 ();
+}
+
+function rigthcard2(){
+    let a = document.querySelector(".rodafrente .identify");
+    a.classList.remove('identify');
+    let b = document.querySelector(".rodatras .identify");
+    b.classList.remove('identify');
+    cartasviradas = [];
+    cartascertas = document.querySelectorAll(".rodafrente")
+    ongaming ();
+}
+
+function wrongcard() {
+    let a = document.querySelector(".rodafrente .identify");
+    a = a.parentElement;
+    a.classList.remove('rodafrente');
+    let b = document.querySelector(".rodatras .identify");
+    b = b.parentElement;
+    b.classList.remove('rodatras');
+    wrongcard2();
+}
+
+function wrongcard2() {
+    let a = document.querySelector(".rodafrente .identify");
+    a = a.parentElement;
+    a.classList.remove('rodafrente');
+    let b = document.querySelector(".rodatras .identify");
+    b = b.parentElement;
+    b.classList.remove('rodatras');
+}
+
+function ganhou () {
+    alert(`Você ganhou em ${qtdclicks} jogadas, e demorou ${tempocorrido} segundos para terminar!`)
+    recomecar ()
+}
+
+function recomecar (){
+    let restart = prompt("Gostaria de jogar novamente?")
+    if (restart === 'sim') {
+        correction ();
+    } else if (restart === 'não'){
+        alert("Então fecha a aba aí, já acabou o jogo (╬▔皿▔)╯")
+    } else {
+        alert("Responde apenas sim ou não, com todas as letras minúsculas e acentuação correta.")
+        recomecar ();
+    }
+}
+
+function ongaming () {
+    if (cartascertas.length == totaldecartas){
+       setTimeout(ganhou, 1000);
     }
 }

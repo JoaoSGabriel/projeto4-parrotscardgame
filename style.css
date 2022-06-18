@@ -2,11 +2,19 @@ body {
     background-color:#edf7c1;
     font-family: Roboto;
 }
+.id {
+    display: none;
+}
 .topo {
     width: 100%;
     display: flex;
     justify-content: center;
     margin: 40px 0 47px 0;
+}
+.tempocorrido {
+    position: fixed;
+    top: 50px;
+    right: 10px;
 }
 .titulo {
     font-size: 56px;
@@ -18,7 +26,7 @@ body {
 .cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     margin: 0 120px;
 }
@@ -66,5 +74,8 @@ body {
     }
     .card {
         margin: 0 0 34px 0;
+    }
+    .tempocorrido {
+        top: 100px;
     }
 }
